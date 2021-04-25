@@ -6,6 +6,7 @@ import numpy as np
 from nltk.corpus import stopwords
 from langdetect import detect
 import string
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def split(s: str):
     return s.split(' ')
@@ -22,3 +23,7 @@ def split_data(data):  #split the review into a list of words
     data['text'] = data['text'].map(split)
     return data
 
+def encoding_tfidf(data):
+    v = TfidfVectorizer(stop_words='english', max_df=0.03)
+    x = v.fit_transform(data['text'])
+    return x

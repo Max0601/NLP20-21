@@ -45,5 +45,12 @@ dataset['language'] = dataset['text'].map(detect)
 dataset = dataset[dataset['language']=='en']
 dataset = dataset.drop('language', axis=1)
 
+# negative and positive (1-2* = 0 and 4-5* = 1)
+
+dataset.loc[dataset.review_stars < 3 , 'review_stars'] = 0
+dataset.loc[dataset.review_stars > 3 , 'review_stars'] = 1
+dataset = dataset[dataset['review_stars']!=3]
+
+
 #dataset.to_csv('data/sampledata.csv')
 
