@@ -24,23 +24,28 @@ def logistic_model(data, encoding):
     print('logistic model')
     x_train, x_test, y_train, y_test = train_test_split(data['text'].values, data['review_stars'].values,
                                                         test_size=0.25, random_state=1000)
+    y_train = y_train - 1
+    y_test = y_test - 1
     if encoding == 'CountVectorizer':
         vectorizer = CountVectorizer()
         vectorizer.fit(x_train)
         x_train = vectorizer.transform(x_train)
         x_test = vectorizer.transform(x_test)
 
-    classifier = LogisticRegression(max_iter=1000000)
+    classifier = LogisticRegression(max_iter=100000)
     classifier.fit(x_train, y_train)
     score = classifier.score(x_test, y_test)
     y_predicted = classifier.predict(x_test)
-    print("Accuracy:", score)
+    print("Logistic Accuracy:", score)
 
 def keras_model(data, encoding):
     clear_session()
     print("Keras")
-    x_train, x_test, y_train, y_test = train_test_split(data['text'].values, data['review_stars'].values,
+    y = to_categorical(np.asarray(data['review_stars']) - 1)
+    x_train, x_test, y_train, y_test = train_test_split(data['text'].values, y,
                                                         test_size=0.25, random_state=1000)
+
+
     if encoding == 'CountVectorizer':
         vectorizer = CountVectorizer()
         vectorizer.fit(x_train)
@@ -50,16 +55,17 @@ def keras_model(data, encoding):
     input_dim = x_train.shape[1]
 
     model = Sequential()
-    model.add(layers.Dense(5, input_dim=input_dim, activation='relu'))
-    model.add(layers.Dense(1, activation='sigmoid'))
-    model.compile(loss='binary_crossentropy',
+    model.add(layers.Dense(10, input_dim=input_dim, activation='relu'))
+    model.add(layers.Dropout(0.1))
+    model.add(layers.Dense(5, activation='softmax'))
+    model.compile(loss='categorical_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])
     model.summary()
 
     history = model.fit(x_train, y_train,
-                        epochs=50,
-                        verbose=False,
+                        epochs=10,
+                        verbose=2,
                         validation_data=(x_test, y_test),
                         batch_size=100)
     loss, accuracy = model.evaluate(x_train, y_train, verbose=False)
