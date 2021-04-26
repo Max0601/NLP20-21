@@ -1,4 +1,6 @@
-# NLP20-21
+# NLP20-21 Yelp Reviews
+
+Group member : Paula Fonte, Gaspard Grimm, Maxime Zuo
 
 The Yelp dataset was first published in late 2017, and had several updates since then, the version we use is the most recent and comes from https://www.yelp.com/dataset. As it name suggests, it contains a subset of the businesses, reviews, users and other data present on the Yelp website. 
 
