@@ -6,7 +6,7 @@ PRE-REQUISITE :
 - You need to download the data folder : https://drive.google.com/file/d/1Ti9VNcvsSGvaDH97o0chfdC9So1s21WA/view?usp=sharing
 
 The files: 
-- The data_into is a notebook with the introduction of the dataset
+- The data_info is a notebook with the introduction of the dataset
 - Main.py is the final file to run 
 - encoding.py contains the different encoding functions 
 - create_sample_data.py explains how to we created the sample_data.csv from the initial yelp reviews
