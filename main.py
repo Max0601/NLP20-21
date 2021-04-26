@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from keras.models import Sequential
 from keras import layers
 from keras.backend import clear_session
-from models import logistic_model, keras_model
+from models import logistic_model, keras_model, LSTM_model
 
 ## import dataset
 
@@ -26,3 +26,10 @@ logistic_model(data, "CountVectorizer")
 ## Keras with countVectorizer
 
 keras_model(data, "CountVectorizer")
+
+
+## LSTM Model
+
+LSTM_model(data)
+## Naive Bayes Linear Model in the notebook
+
